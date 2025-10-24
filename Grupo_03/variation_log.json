@@ -1,0 +1,10 @@
+{
+  "grupo": 3,
+  "actions": [
+    {
+      "sensitive_fields": {
+        "Password_filled": 18484
+      }
+    }
+  ]
+}
