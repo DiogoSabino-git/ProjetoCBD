@@ -36,7 +36,7 @@ StateProvince (stateProvinceID, stateProvinceName, regionID)
 - PK (stateProvinceID)
 - FK (regionID) -> Region
 
-Region (regionID, regionName, stateProvinceID, countryID)
+Region (regionID, regionName, countryID)
 - PK (regionID)
 - FK (countryID) -> Country
 
