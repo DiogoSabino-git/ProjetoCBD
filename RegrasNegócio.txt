@@ -14,7 +14,7 @@ Customers – Education
 
 Customers – Address
 - Um Customer tem sempre uma e apenas uma Address.
-- Uma Address tem sempre um e apenas um Customer.
+- Uma Address tem um ou mais Customers.
 
 Customers – StateProvince
 - Um Customer tem sempre um e apenas um StateProvince.

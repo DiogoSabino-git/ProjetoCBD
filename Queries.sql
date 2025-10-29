@@ -10,7 +10,7 @@ select * from ProductSubCategory;
 
 select * from SalesTerritory;
 
-select * from Customer;
+select Count(distinct CustomerKey) from Customer;
 
 select COUNT(*) from Sales;
 
@@ -27,4 +27,4 @@ where UnitPrice != TotalSalesAmount;
 select * from Sales
 where SalesOrderLineNumber != 1;
 
-select COUNT(distinct Color) from Products;
+select COUNT(distinct ProductKey) from Products;
