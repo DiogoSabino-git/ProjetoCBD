@@ -27,4 +27,9 @@ where UnitPrice != TotalSalesAmount;
 select * from Sales
 where SalesOrderLineNumber != 1;
 
+select * from Sales
+where SalesOrderNumber = 'SO51178';
+
 select COUNT(distinct ProductKey) from Products;
+
+select Count(distinct SalesOrderNumber) from Sales;

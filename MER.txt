@@ -47,13 +47,13 @@ Country (countryID, countryName, groupID)
 Group (groupID, groupName)
 - PK (groupID)
 
-SalesOrder (salesOrderNumber, orderDate, dueDate, shipDate, freight, taxAmt, totalSalesAmt, customerID, currencyID)
-- PK (salesOrderNumber)
+SalesOrder (salesOrderID, orderDate, dueDate, shipDate, freight, taxAmt, totalSalesAmt, customerID, currencyID)
+- PK (salesOrderID)
 - FK (customerID) -> Customer
 - FK (currencyID) -> Currency
 
-SalesOrderLine (salesOrderLineNumber, unitPrice, salesOrderNumber, productID)
-- PK (salesOrderLineNumber)
+SalesOrderLine (salesOrderLineNumber, unitPrice, salesOrderID, productID)
+- PK (salesOrderID, salesOrderLineNumber)
 - FK (salesOrderNumber) -> SalesOrder
 - FK (productID) -> Product
 
