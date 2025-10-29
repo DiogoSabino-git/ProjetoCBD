@@ -63,3 +63,7 @@ Products – Category
 Users – SentEmail
 - Um User tem zero ou mais emails.
 - Um email tem um e apenas um email.
+
+Products - Color
+- Um Product tem zero ou uma color.
+- Uma color tem zero ou mais produtos.

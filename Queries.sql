@@ -26,3 +26,5 @@ where UnitPrice != TotalSalesAmount;
 
 select * from Sales
 where SalesOrderLineNumber != 1;
+
+select COUNT(distinct Color) from Products;

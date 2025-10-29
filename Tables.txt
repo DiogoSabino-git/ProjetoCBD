@@ -1,0 +1,116 @@
+Customer
+customerID INT - 4
+firstName VARCHAR (50)
+middleName VARCHAR (50)
+lastName VARCHAR (50)
+brithDate DATE - 3
+phone VARCHAR (20)
+yearlyIncome DECIMAL (10,2)
+numbersCarsOwned TINYINT UNSIGNED - 1
+dateFirstPurchase DATE - 3
+title VARCHAR( 5)
+martialStatus VARCHAR (15)
+genderID (FK) INT
+occupationID (FK)  INT
+addressID (FK)  INT
+stateProvinceID (FK)  INT
+userEmail (FK) VARCHAR(255)
+
+Users
+userEmail (PK) VARCHAR (255)
+password VARCHAR (255)
+
+SentEmails
+sentEmailsID (PK) INT
+message VARCHAR(1000)
+timestamp DATETIME
+
+Address
+addressID (PK) INT
+addressLine1 VARCHAR (100)
+city VARCHAR(50)
+postalCode VARCHAR(10) 
+customerID (FK) INT
+
+Education 
+educationID INT 
+educationName VARCHAR(50)
+customerID (FK) INT
+
+Occupation 
+occupationID INT 
+occupationName VARCHAR(50)
+customerID (FK) INT
+
+Gender 
+genderID INT 
+genderName VARCHAR(50)
+customerID (FK) INT
+
+StateProvince
+stateProvinceID INT
+stateProvinceName VARCHAR(50)
+regionID (FK) INT
+
+Region
+regionID INT
+regionName VARCHAR(50)
+countryID (FK) INT
+
+
+Country
+countryID INT
+countryName VARCHAR(50)
+groupID (FK) INT
+
+Group
+groupID INT
+groupName VARCHAR (50)
+
+SalesOrder
+salesOrderNumber (PK) INT
+orderDate DATE
+dueDate DATE
+shipDate DATE
+freight DECIMAL (5,2)
+taxAmt DECIMAL (7, 3)
+totalSalesAmt DECIMAL (10, 2)
+customerID
+currencyID
+
+SalesOrderLine 
+
+salesOrderLineNumber- tinyint unsigned
+unitPrice- decimal(9,3)
+salesOrderNumber- char(7)
+productID- int
+
+Category 
+categoryID- tinyint unsigned
+categoryName- varchar(50)
+parentCategoryID- tinyint unsigned
+
+Products 
+productID- int
+productName- varchar(50)
+modelName- varchar(50)
+sizeRange- varchar(20) 
+description- varchar(max)
+class- char(1)
+Style- char(1)
+Weight- decimal(5,2)
+weightUnitMeasureCode- char(2) 
+standardCost- decimal(10, 6) 
+listPrice- decimal(10, 6)
+dealerPrice- decimal(10, 6) 
+safetyStockLevel- smallint
+daysToManufacture- tinyint unsigned
+finishedGoodFlag- char(5)
+productLine- char(1) 
+colorID- tinyint unsigned 
+categoryID- tinyint unsigned
+
+Currency
+currencyID- tinyint unsigned
+currencyName- varchar(50)
+curencyAlternateKey- char(3)

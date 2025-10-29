@@ -68,3 +68,6 @@ Products (productID, productName, modelName, sizeRange, description, class, styl
 Category (categoryID, categoryName, parentCategoryID)
 - PK (categoryID)
 - FK (parentCategory) -> Category
+
+Color (colorID, colorName)
+- PK (colorID)
