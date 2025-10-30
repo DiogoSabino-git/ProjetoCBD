@@ -1,0 +1,76 @@
+Modelo Relacional
+
+Customer (customerID, firstName, middleName, lastName, birthDate, yearlyIncome, numbersCarsOwned, dateFirstPurchase, title, martialStatus, genderID, occupationID, educationID, addressID, stateProvinceID, userEmail) 
+- PK (customerID) 
+- FK (genderID) -> Gender 
+- FK (occupationID) -> Occupation
+- FK (educationID) -> Education
+- FK (addressID) -> Address
+- FK (userEmail) -> UserSecurity
+
+UserSecurity (userEmail, password, phone, securityQuestion, securityAnswer )
+- PK (userEmail)
+
+SentEmails (sentEmailsID, message, timestamp, userEmail)
+- PK (sentEmailsID)
+- FK (userEmail)
+
+Address (addressID, addressLine1, city)
+- PK (addressID)
+- FK (cityID) -> City
+
+Education (educationID, educationName, customerID)
+- PK (educationID)
+- FK (customerID) -> Customer
+
+Occupation (occupationID, occupationName, customerID)
+- PK (occupationID)
+- FK (customerID) -> Customer
+
+Gender (genderID, genderName, customerID)
+- PK (genderID)
+- FK (customerID) -> Customer
+
+City (cityID, cityName, stateProvinceID)
+- PK (cityID)
+- FK (stateProvinceID)
+
+StateProvince (stateProvinceID, stateProvinceName, regionID)
+- PK (stateProvinceID)
+- FK (regionID) -> Region
+
+Region (regionID, regionName, countryID)
+- PK (regionID)
+- FK (countryID) -> Country
+
+Country (countryID, countryName, groupID)
+- PK (countryID)
+- FK (groupID) -> Group
+
+Group (groupID, groupName)
+- PK (groupID)
+
+SalesOrder (salesOrderID, orderDate, dueDate, shipDate, freight, taxAmt, totalSalesAmt, customerID, currencyID)
+- PK (salesOrderID)
+- FK (customerID) -> Customer
+- FK (currencyID) -> Currency
+
+SalesOrderLine (salesOrderLineNumber, unitPrice, salesOrderID, productID)
+- PK (salesOrderID, salesOrderLineNumber)
+- FK (salesOrderNumber) -> SalesOrder
+- FK (productID) -> Product
+
+Currency (currencyID, currencyName, curencyAlternateKey)
+- PK (currencyID)
+
+Products (productID, productName, modelName, sizeRange, description, class, style, weight, weightUnitMeasureCode, standardCost, listPrice, dealerPrice, safetyStockLevel, daysToManufacture, finishedGoodFlag, productLine, colorID, categoryID)
+- PK (productID)
+- FK (colorID) -> Color
+- FK (categoryID) -> Category
+
+Category (categoryID, categoryName, parentCategoryID)
+- PK (categoryID)
+- FK (parentCategory) -> Category
+
+Color (colorID, colorName)
+- PK (colorID)

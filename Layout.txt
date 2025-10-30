@@ -1,0 +1,28 @@
+Primary Tables: 
+
+- Education - 60 Bytes
+- Occupation - 60 Bytes
+- Gender - 60 Bytes
+- StateProvince - 60 Bytes
+- Region - 60 Bytes
+- Country - 60 Bytes
+- Group - 56 Bytes
+- Category - 54 Bytes
+- Color - 23
+- Currency - 56 Bytes
+
+Secondary Tables: (25MB) (10MB GROWTH)
+
+- Customer - 495 Bytes
+- UserSecurity - 514 Bytes
+- Address - 174 Bytes
+- SalesOrder - 37 Bytes
+- SalesOrderLine - 17 Bytes
+- Produts - 389 Bytes
+
+Log Transaction:
+
+- SentEmailsLog - 471 Bytes
+- CustomerLog
+- SalesOrderLog
+- ProductLog
