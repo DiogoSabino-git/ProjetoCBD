@@ -1,24 +1,23 @@
 Modelo Relacional
 
-Customer (customerID, firstName, middleName, lastName, birthDate, phone, yearlyIncome, numbersCarsOwned, dateFirstPurchase, title, martialStatus, genderID, occupationID, educationID, addressID, stateProvinceID, userEmail) 
+Customer (customerID, firstName, middleName, lastName, birthDate, yearlyIncome, numbersCarsOwned, dateFirstPurchase, title, martialStatus, genderID, occupationID, educationID, addressID, stateProvinceID, userEmail) 
 - PK (customerID) 
 - FK (genderID) -> Gender 
 - FK (occupationID) -> Occupation
 - FK (educationID) -> Education
 - FK (addressID) -> Address
-- FK (stateProvinceID) -> StateProvince
-- FK (userEmail) -> Users
+- FK (userEmail) -> UserSecurity
 
-Users (userEmail, password)
+UserSecurity (userEmail, password, phone, securityQuestion, securityAnswer )
 - PK (userEmail)
 
 SentEmails (sentEmailsID, message, timestamp, userEmail)
 - PK (sentEmailsID)
 - FK (userEmail)
 
-Address (addressID, addressLine1, city, postalCode, customerID)
+Address (addressID, addressLine1, city)
 - PK (addressID)
-- FK (customerID) -> Customer
+- FK (cityID) -> City
 
 Education (educationID, educationName, customerID)
 - PK (educationID)
@@ -31,6 +30,10 @@ Occupation (occupationID, occupationName, customerID)
 Gender (genderID, genderName, customerID)
 - PK (genderID)
 - FK (customerID) -> Customer
+
+City (cityID, cityName, stateProvinceID)
+- PK (cityID)
+- FK (stateProvinceID)
 
 StateProvince (stateProvinceID, stateProvinceName, regionID)
 - PK (stateProvinceID)

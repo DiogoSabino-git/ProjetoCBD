@@ -4,7 +4,6 @@ firstName VARCHAR (50)
 middleName VARCHAR (50)
 lastName VARCHAR (50)
 brithDate DATE - 3
-phone VARCHAR (20)
 yearlyIncome DECIMAL (10,2)
 numbersCarsOwned TINYINT UNSIGNED - 1
 dateFirstPurchase DATE - 3
@@ -16,36 +15,42 @@ addressID (FK)  INT
 stateProvinceID (FK)  INT
 userEmail (FK) VARCHAR(255)
 
-Users
+UserSecurity
 userEmail (PK) VARCHAR (255)
 password VARCHAR (255)
+securityQuestion (100)
+securityAnswer (100)
+phone VARCHAR (20)
 
 SentEmails
 sentEmailsID (PK) INT
 message VARCHAR(1000)
 timestamp DATETIME
+destination VARCHAR (255)
+
 
 Address
 addressID (PK) INT
 addressLine1 VARCHAR (100)
+cityID (FK) INT
+
+City
+cityID INT
 city VARCHAR(50)
 postalCode VARCHAR(10) 
-customerID (FK) INT
+stateProvinceID (FK) INT
 
 Education 
 educationID INT 
 educationName VARCHAR(50)
-customerID (FK) INT
 
 Occupation 
 occupationID INT 
 occupationName VARCHAR(50)
-customerID (FK) INT
 
 Gender 
 genderID INT 
 genderName VARCHAR(50)
-customerID (FK) INT
 
 StateProvince
 stateProvinceID INT
@@ -68,7 +73,7 @@ groupID INT
 groupName VARCHAR (50)
 
 SalesOrder
-salesOrderNumber (PK) INT
+salesOrderID (PK) INT
 orderDate DATE
 dueDate DATE
 shipDate DATE
@@ -79,7 +84,6 @@ customerID
 currencyID
 
 SalesOrderLine 
-
 salesOrderLineNumber- tinyint unsigned
 unitPrice- decimal(9,3)
 salesOrderNumber- char(7)
@@ -114,3 +118,7 @@ Currency
 currencyID- tinyint unsigned
 currencyName- varchar(50)
 curencyAlternateKey- char(3)
+
+Color
+colorID tinyInt PK
+colorName VARCHAR (20)

@@ -24,7 +24,7 @@ Customers – SalesOrder
 - Um Customer tem zero ou mais SalesOrder.
 - Uma SalesOrder tem sempre um e apenas um Customer.
 
-Customers – Users
+Customers – UserSecurity
 - Um Customer sempre um e apenas um User.
 - Um User tem sempre um e apenas um Customer.
 
@@ -59,10 +59,6 @@ Products – Color
 Products – Category
 - Um Products tem sempre uma e apenas uma Category.
 - Uma Category tem zero ou mais Products.
-
-Users – SentEmail
-- Um User tem zero ou mais emails.
-- Um email tem um e apenas um email.
 
 Products - Color
 - Um Product tem zero ou uma color.

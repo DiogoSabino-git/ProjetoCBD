@@ -33,3 +33,17 @@ where SalesOrderNumber = 'SO51178';
 select COUNT(distinct ProductKey) from Products;
 
 select Count(distinct SalesOrderNumber) from Sales;
+
+select * from Customer
+where SalesTerritoryKey = 6;
+
+select CustomerKey from Sales
+where SalesTerritoryKey = 6;
+
+select * from Customer;
+
+select * from Sales
+where CustomerKey = 21768;
+
+select * from Customer
+where CustomerKey = 21768;
