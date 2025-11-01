@@ -33,6 +33,7 @@ LOG ON (
 );
 GO
 
+use AdventureWorks
 ----------------------------------------------------------
 -- GROUP, COUNTRY, REGION, STATEPROVINCE, City, Address --
 ----------------------------------------------------------
