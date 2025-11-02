@@ -98,17 +98,18 @@ WITH DistinctCustomers AS (
     FROM AdventureWorksLegacy.dbo.Customer
 )
 INSERT INTO dbo.Customers (
-    firstName, middleName, lastName, brithDate, yearlyIncome,
+    firstName, middleName, lastName, birthDate, yearlyIncome,
     numbersCarsOwned, dateFirstPurchase, title, martialStatus,
-    genderID, occupationID, addressID, userEmail
+    genderID, occupationID, educationID, addressID, userEmail
 )
 SELECT 
     FirstName, MiddleName, LastName, BirthDate, YearlyIncome,
     NumberCarsOwned, DateFirstPurchase, Title, MaritalStatus,
-    g.genderID, o.occupationID, a.addressID, EmailAddress
+    g.genderID, o.occupationID, e.educationID, a.addressID, EmailAddress
 FROM DistinctCustomers cu
 JOIN dbo.Gender g ON g.genderName = cu.Gender
 JOIN dbo.Occupation o ON o.occupationName = cu.Occupation
+JOIN dbo.Education e ON e.educationName = cu.Education
 JOIN dbo.Address a 
     ON a.addressLine1 = cu.AddressLine1
    AND a.postalCode = cu.PostalCode
@@ -278,3 +279,5 @@ SELECT
     'Sales (Legacy)' AS TableName, 
     COUNT(*) AS LegacyDetailCount
 FROM AdventureWorksLegacy.dbo.Sales;
+
+

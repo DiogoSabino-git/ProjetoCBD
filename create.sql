@@ -181,7 +181,7 @@ CREATE TABLE Customers (
     firstName VARCHAR (50) NOT NULL,
     middleName VARCHAR (50),
     lastName VARCHAR (50) NOT NULL,
-    brithDate DATE NOT NULL,
+    birthDate DATE NOT NULL,
     yearlyIncome DECIMAL (10,2),
     numbersCarsOwned TINYINT,
     dateFirstPurchase DATE,
@@ -189,10 +189,12 @@ CREATE TABLE Customers (
     martialStatus VARCHAR (15),
     genderID TINYINT,
     occupationID TINYINT,
+    educationID TINYINT,
     addressID INT,
     userEmail VARCHAR(255),
     FOREIGN KEY (genderID) REFERENCES [Gender](genderID),
     FOREIGN KEY (occupationID) REFERENCES [Occupation](occupationID),
+    FOREIGN KEY (educationID) REFERENCES [Education](educationID),
     FOREIGN KEY (addressID) REFERENCES [Address](addressID),
     FOREIGN KEY (userEmail) REFERENCES [UserSecurity](userEmail)
 )ON [AdventureSecondaryFG];
