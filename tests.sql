@@ -45,7 +45,7 @@ DBCC CHECKIDENT ('Category', RESEED, 41);
 -- Add Customer Test --
 -----------------------
 
-EXEC spAddCustomer @FirstName = 'Lúcio', @MiddleName = 'Correia', @LastName = 'Dos Santos', @CustomerEmail = 'luciocdds@gmail.com', 
+EXEC spAddCustomer @FirstName = 'Lúcio', @MiddleName = 'Correia', @LastName = 'Dos Santos', @CustomerEmail = 'luciocdssds@gmail.com', 
                     @CustomerPassword = 'frogger123', @SecurityQuestion = 'Why are you so angry?', @SecurityAnswer = 'boop', 
                     @Phone = '111111111', @Address = 'Paraíso', @PostalCode = '2805', @MartialStatus = "S", @BirthDate = '1930-01-10', 
                     @Education = 'Bachelors', @Occupation = "Professional", @Gender = "M";
@@ -56,3 +56,15 @@ where firstName = 'Lúcio';
 select * from [Address]
 where addressLine1 = 'Paraíso';
 
+select * from [Address]
+where addressID = 20072;
+
+--------------------------
+-- Delete Customer Test --
+--------------------------
+
+EXEC spDeleteCustomer @CustomerEmail = 'luciocdssds@gmail.com';
+
+select * from Customers c
+join UserSecurity u ON c.userEmail = u.userEmail
+where c.userEmail = 'luciocdssds@gmail.com';

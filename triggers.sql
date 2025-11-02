@@ -23,3 +23,6 @@ BEGIN
     DELETE FROM Category
     WHERE categoryID IN (SELECT categoryID FROM deleted);
 END;
+
+
+-- 

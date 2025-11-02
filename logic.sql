@@ -42,11 +42,20 @@ CREATE OR ALTER PROCEDURE spAddCustomer
     @Gender VARCHAR (50)
 AS
 BEGIN
-    INSERT INTO [Address] (addressLine1, postalCode, cityID) 
-    VALUES (@PostalCode, @Address, 75)
+    IF EXISTS (SELECT 1 FROM UserSecurity WHERE userEmail = @CustomerEmail)
+        BEGIN
+    PRINT 'Error: User already exists with this email.';
+    RETURN;
+        END
 
     INSERT INTO UserSecurity (userEmail, [password], securityQuestion, securityAnswer)
     VALUES (@CustomerEmail, @CustomerPassword, @SecurityQuestion, @SecurityAnswer)
+
+    IF NOT EXISTS (SELECT 1 FROM [Address] WHERE addressLine1 = @Address AND postalCode = @PostalCode)
+        BEGIN
+    INSERT INTO [Address] (addressLine1, postalCode, cityID) 
+    VALUES (@Address, @PostalCode, 75)
+        END
 
     DECLARE @GenderID INT
     SELECT @GenderID = genderID
@@ -67,5 +76,30 @@ BEGIN
 
     INSERT INTO Customers (firstName, middleName, lastName, birthDate, martialStatus, genderID, occupationID, educationID, addressID, userEmail)
     VALUES (@FirstName, @MiddleName, @LastName, @BirthDate, @MartialStatus, @GenderID, @OccupationID, @EducationID, @AddressID, @CustomerEmail)
+END;
+GO
+
+---------------------------
+-- SP to delete Customer --
+---------------------------
+
+CREATE OR ALTER PROCEDURE spDeleteCustomer
+    @CustomerEmail VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        DELETE FROM Customers WHERE userEmail = @CustomerEmail;
+        DELETE FROM UserSecurity WHERE userEmail = @CustomerEmail;
+
+        COMMIT TRANSACTION;
+        PRINT 'Customer and related data deleted.';
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        PRINT 'Error: ' + ERROR_MESSAGE();
+    END CATCH
 END;
 GO
