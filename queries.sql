@@ -17,15 +17,34 @@ SELECT DISTINCT gender FROM AdventureWorksLegacy.dbo.Customer
 EXCEPT
 SELECT genderName FROM AdventureWorks.dbo.Gender;
 
+-- Old
+SELECT COUNT(*) AS OldGenderCount FROM AdventureWorksLegacy.dbo.Customer WHERE Gender IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewGenderCount FROM AdventureWorks.dbo.Gender;
+
 -- Education
 SELECT DISTINCT Education FROM AdventureWorksLegacy.dbo.Customer
 EXCEPT
 SELECT educationName FROM AdventureWorks.dbo.Education;
 
+-- Old
+SELECT COUNT(DISTINCT Education) AS OldEducationCount FROM AdventureWorksLegacy.dbo.Customer WHERE Education IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewEducationCount FROM AdventureWorks.dbo.Education;
+
 -- Occupation
 SELECT DISTINCT Occupation FROM AdventureWorksLegacy.dbo.Customer
 EXCEPT
 SELECT occupationName FROM AdventureWorks.dbo.Occupation;
+
+-- Old
+SELECT COUNT(DISTINCT Occupation) AS OldOccupationCount FROM AdventureWorksLegacy.dbo.Customer WHERE Occupation IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewOccupationCount FROM AdventureWorks.dbo.Occupation;
+
 
 -- Address
 SELECT DISTINCT 
@@ -36,6 +55,13 @@ SELECT a.addressLine1, c.cityName, a.postalCode
 FROM AdventureWorks.dbo.Address a
 JOIN AdventureWorks.dbo.City c ON a.cityID = c.cityID;
 
+-- Old
+SELECT COUNT(DISTINCT AddressLine1) AS OldAddressCount FROM AdventureWorksLegacy.dbo.Customer;
+
+-- New
+SELECT COUNT(*) AS NewAddressCount FROM AdventureWorks.dbo.Address;
+
+
 -- Products
 SELECT COUNT(*) AS OldCount FROM AdventureWorksLegacy.dbo.Products;
 SELECT COUNT(*) AS NewCount FROM AdventureWorks.dbo.Products;
@@ -45,7 +71,14 @@ SELECT DISTINCT Color FROM AdventureWorksLegacy.dbo.Products
 EXCEPT
 SELECT colorName FROM AdventureWorks.dbo.Color;
 
--- Category (ProductCategory)
+-- Old
+SELECT COUNT(DISTINCT Color) AS OldColorCount FROM AdventureWorksLegacy.dbo.Products WHERE Color IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewColorCount FROM AdventureWorks.dbo.Color;
+
+
+-- Category 
 SELECT DISTINCT EnglishProductCategoryName FROM AdventureWorksLegacy.dbo.Products
 EXCEPT
 SELECT categoryName FROM AdventureWorks.dbo.Category;
@@ -54,6 +87,13 @@ SELECT o.EnglishProductName, n.productName
 FROM AdventureWorksLegacy.dbo.Products o
 JOIN AdventureWorks.dbo.Products n
   ON o.EnglishProductName = n.productName;
+
+-- Old
+SELECT COUNT(DISTINCT EnglishProductCategoryName) AS OldCategoryCount FROM AdventureWorksLegacy.dbo.Products;
+
+-- New
+SELECT COUNT(*) AS NewCategoryCount FROM AdventureWorks.dbo.Category WHERE parentCategoryID IS NULL;
+
 
 -- Subcategory
 SELECT 
@@ -94,41 +134,64 @@ SELECT DISTINCT SalesTerritoryGroup FROM AdventureWorksLegacy.dbo.SalesTerritory
 EXCEPT
 SELECT groupName FROM AdventureWorks.dbo.[Group];
 
+-- Old
+SELECT COUNT(DISTINCT SalesTerritoryGroup) AS OldGroupCount 
+FROM AdventureWorksLegacy.dbo.SalesTerritory
+WHERE SalesTerritoryGroup IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewGroupCount 
+FROM AdventureWorks.dbo.[Group];
+
+
 -- Countries
 SELECT DISTINCT SalesTerritoryCountry FROM AdventureWorksLegacy.dbo.SalesTerritory
 EXCEPT
 SELECT countryName FROM AdventureWorks.dbo.Country;
+
+-- Old
+SELECT COUNT(DISTINCT SalesTerritoryCountry) AS OldCountryCount 
+FROM AdventureWorksLegacy.dbo.SalesTerritory
+WHERE SalesTerritoryCountry IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewCountryCount 
+FROM AdventureWorks.dbo.Country;
+
+
 
 -- Regions
 SELECT DISTINCT SalesTerritoryRegion FROM AdventureWorksLegacy.dbo.SalesTerritory
 EXCEPT
 SELECT regionName FROM AdventureWorks.dbo.Region;
 
+-- Old
+SELECT COUNT(DISTINCT SalesTerritoryRegion) AS OldRegionCount 
+FROM AdventureWorksLegacy.dbo.SalesTerritory
+WHERE SalesTerritoryRegion IS NOT NULL;
+
+-- New
+SELECT COUNT(*) AS NewRegionCount 
+FROM AdventureWorks.dbo.Region;
+
+
 --Sales
-SELECT 
-    'SalesOrderHeader (New)' AS TableName, 
-    COUNT(*) AS NewRowCount
+SELECT 'SalesOrderHeader (New)' AS TableName, COUNT(*) AS NewRowCount
 FROM dbo.SalesOrder
 
 UNION ALL
 
-SELECT 
-    'SalesOrderDetail (New)' AS TableName, 
-    COUNT(*) AS NewRowCount
+SELECT 'SalesOrderDetail (New)' AS TableName, COUNT(*) AS NewRowCount
 FROM dbo.SalesOrderLine
 
 UNION ALL
 
-SELECT 
-    'Sales (Legacy)' AS TableName, 
-    COUNT(DISTINCT SalesOrderNumber) AS LegacyHeaderCount
+SELECT 'Sales (Legacy)' AS TableName, COUNT(DISTINCT SalesOrderNumber) AS LegacyHeaderCount
 FROM AdventureWorksLegacy.dbo.Sales
 
 UNION ALL
 
-SELECT 
-    'Sales (Legacy)' AS TableName, 
-    COUNT(*) AS LegacyDetailCount
+SELECT 'Sales (Legacy)' AS TableName, COUNT(*) AS LegacyDetailCount
 FROM AdventureWorksLegacy.dbo.Sales;
 
 ---------------------------
