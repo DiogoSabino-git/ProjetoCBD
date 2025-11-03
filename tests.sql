@@ -68,3 +68,16 @@ EXEC spDeleteCustomer @CustomerEmail = 'luciocdssds@gmail.com';
 select * from Customers c
 join UserSecurity u ON c.userEmail = u.userEmail
 where c.userEmail = 'luciocdssds@gmail.com';
+
+-------------------------------
+-- EXEC Statistics Procedure --
+-------------------------------
+EXEC spdbStatistics;
+
+-- Before migration
+
+select * from [Statistics];
+
+-- After migration
+
+select * from [Statistics];

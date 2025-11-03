@@ -103,3 +103,62 @@ BEGIN
     END CATCH
 END;
 GO
+
+--------------------------
+-- SP add to Statistics --
+--------------------------
+
+CREATE OR ALTER PROCEDURE spdbstatistics
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @TableName NVARCHAR(255);
+    DECLARE @SQL NVARCHAR(MAX);
+    DECLARE @RowCount INT;
+    DECLARE @SpaceUsed DECIMAL(18,2);
+
+    -- Cursor to loop through all user tables in the current database
+    DECLARE table_cursor CURSOR FOR
+        SELECT QUOTENAME(s.name) + '.' + QUOTENAME(t.name)
+        FROM sys.tables t
+        INNER JOIN sys.schemas s ON t.schema_id = s.schema_id;
+
+    OPEN table_cursor;
+    FETCH NEXT FROM table_cursor INTO @TableName;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        BEGIN TRY
+            -- Get number of rows
+            SET @SQL = N'SELECT @rcount = COUNT(*) FROM ' + @TableName;
+            EXEC sp_executesql @SQL, N'@rcount INT OUTPUT', @rcount = @RowCount OUTPUT;
+
+            -- Get space used (in KB)
+            SET @SQL = N'
+                SELECT @space = SUM(a.total_pages) * 8.0
+                FROM sys.tables t
+                INNER JOIN sys.indexes i ON t.object_id = i.object_id
+                INNER JOIN sys.partitions p ON i.object_id = p.object_id AND i.index_id = p.index_id
+                INNER JOIN sys.allocation_units a ON p.partition_id = a.container_id
+                WHERE t.object_id = OBJECT_ID(@tname)';
+            EXEC sp_executesql @SQL, 
+                N'@tname NVARCHAR(255), @space DECIMAL(18,2) OUTPUT', 
+                @tname = @TableName, 
+                @space = @SpaceUsed OUTPUT;
+
+            -- Insert stats into the Statistics table
+            INSERT INTO [Statistics] (tableName, registersNum, spaceUsedKB, lastUpdate)
+            VALUES (@TableName, @RowCount, @SpaceUsed, GETDATE());
+        END TRY
+        BEGIN CATCH
+            PRINT '⚠️ Skipping table: ' + @TableName + ' (Error: ' + ERROR_MESSAGE() + ')';
+        END CATCH;
+
+        FETCH NEXT FROM table_cursor INTO @TableName;
+    END
+
+    CLOSE table_cursor;
+    DEALLOCATE table_cursor;
+END;
+GO

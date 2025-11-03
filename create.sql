@@ -230,3 +230,15 @@ CREATE TABLE SalesOrderLine (
         ON DELETE CASCADE
 
 )ON [AdventureSecondaryFG];
+
+-----------------------
+-- STATISTICS TABLES --
+-----------------------
+
+CREATE TABLE [Statistics] (
+    statisticsID INT IDENTITY (1,1) PRIMARY KEY,
+    tableName SYSNAME,
+    registersNum INT,
+    spaceUsedKB DECIMAL(18,2),
+    lastUpdate DATE DEFAULT GETDATE()
+)ON [LogFileGroup];
