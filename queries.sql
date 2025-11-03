@@ -55,6 +55,29 @@ FROM AdventureWorksLegacy.dbo.Products o
 JOIN AdventureWorks.dbo.Products n
   ON o.EnglishProductName = n.productName;
 
+-- Subcategory
+SELECT 
+    ps.EnglishProductSubcategoryName AS OldSubcategory,
+    ps.ParentCategoryName AS OldParentCategory,
+    c1.categoryName AS NewSubcategory,
+    c2.categoryName AS NewParentCategory
+FROM AdventureWorksLegacy.dbo.ProductSubCategory ps
+LEFT JOIN AdventureWorks.dbo.Category c1 
+    ON ps.EnglishProductSubcategoryName = c1.categoryName
+LEFT JOIN AdventureWorks.dbo.Category c2
+    ON c1.parentCategoryID = c2.categoryID
+WHERE c2.categoryName <> ps.ParentCategoryName
+   OR c2.categoryName IS NULL;
+
+SELECT COUNT(*) AS OldSubcategoryCount
+FROM AdventureWorksLegacy.dbo.ProductSubCategory;
+
+SELECT COUNT(*) AS NewSubcategoryCount
+FROM AdventureWorks.dbo.Category
+WHERE parentCategoryID IS NOT NULL;
+
+
+
 -- Currency
 SELECT COUNT(*) AS OldCount FROM AdventureWorksLegacy.dbo.Currency;
 SELECT COUNT(*) AS NewCount FROM AdventureWorks.dbo.Currency;
