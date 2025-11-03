@@ -252,32 +252,3 @@ JOIN #ProductMap pm
 DROP TABLE IF EXISTS #SalesOrderMap;
 DROP TABLE IF EXISTS #ProductMap;
 
----- Checking if everything imported correctly 
-
-SELECT 
-    'SalesOrderHeader (New)' AS TableName, 
-    COUNT(*) AS NewRowCount
-FROM dbo.SalesOrder
-
-UNION ALL
-
-SELECT 
-    'SalesOrderDetail (New)' AS TableName, 
-    COUNT(*) AS NewRowCount
-FROM dbo.SalesOrderLine
-
-UNION ALL
-
-SELECT 
-    'Sales (Legacy)' AS TableName, 
-    COUNT(DISTINCT SalesOrderNumber) AS LegacyHeaderCount
-FROM AdventureWorksLegacy.dbo.Sales
-
-UNION ALL
-
-SELECT 
-    'Sales (Legacy)' AS TableName, 
-    COUNT(*) AS LegacyDetailCount
-FROM AdventureWorksLegacy.dbo.Sales;
-
-
