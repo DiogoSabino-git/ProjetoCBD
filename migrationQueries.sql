@@ -189,13 +189,3 @@ SELECT COUNT(*) AS TotalOrderLines FROM AdventureWorks.Sales.SalesOrderLine;
 SELECT * FROM AdventureWorks.Reference.Occupation;
 SELECT * FROM AdventureWorks.Reference.Education;
 SELECT * FROM AdventureWorks.Reference.Gender;
-
--- Cleanup commands
-USE master;
-GO
-
-ALTER DATABASE AdventureWorks SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-GO
-
-DROP DATABASE AdventureWorks;
-GO

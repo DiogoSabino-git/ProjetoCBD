@@ -91,3 +91,33 @@ EXEC spEditUserEmail
     SELECT name AS SchemaName
 FROM sys.schemas
 ORDER BY name;
+
+-----------------------
+-- Test vFullAddress --
+-----------------------
+
+select * from Location.vFullAddress;
+
+--------------------------------------
+-- Test UserManagement.vUserProfile --
+--------------------------------------
+
+select * from UserManagement.vUserProfile;
+
+------------------------------
+-- Test Sales.vOrderDetails --
+------------------------------
+
+select * from Sales.vOrderDetails;
+
+--------------------------------
+-- Test Sales.vCustomerOrders --
+--------------------------------
+
+select * from Sales.vCustomerOrders;
+
+-------------------------------------
+-- Test Sales.vProductSalesSummary --
+-------------------------------------
+
+select * from Sales.vProductSalesSummary;
