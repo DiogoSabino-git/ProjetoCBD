@@ -81,3 +81,13 @@ select * from [Statistics];
 -- After migration
 
 select * from [Statistics];
+
+
+EXEC spEditUserEmail
+    @ID = 1,
+    @email = 'jeremy.roberts@newmail.com';
+
+
+    SELECT name AS SchemaName
+FROM sys.schemas
+ORDER BY name;
