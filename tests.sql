@@ -156,10 +156,18 @@ select * from Sales.Customers where customerID = 1;
 ------------------------
 -- spEditAddress Test --
 ------------------------
+select * from [Location].Address where addressLine1 = '1085 Greenbelt Way';
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditAddress @ID = 1, @address = '1085 Greenbelt Way', @postal = 90012;
+select * from Sales.Customers where customerID =1;
 
 -----------------------
 -- spEditEmail Test ---
 -----------------------
+select * from UserManagement.UserSecurity where userEmail='kendra14@adventure-works.com';
+select * from Sales.Customers where customerID=1;
+EXEC Sales.spEditUserEmail @ID = 1, @email = 'kendra14@adventure-works-new.com';
+select * from Sales.Customers where customerID=1;
 
 -------------------------------
 -- EXEC Statistics Procedure --
@@ -173,16 +181,6 @@ select * from [Statistics];
 -- After migration
 
 select * from [Statistics];
-
-
-EXEC spEditUserEmail
-    @ID = 1,
-    @email = 'jeremy.roberts@newmail.com';
-
-
-    SELECT name AS SchemaName
-FROM sys.schemas
-ORDER BY name;
 
 -----------------------
 -- Test vFullAddress --

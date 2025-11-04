@@ -328,7 +328,8 @@ GO
 -- Edit Address
 CREATE OR ALTER PROCEDURE Sales.spEditAddress
     @ID INT,
-    @AddressID INT
+    @Address VARCHAR(50),
+    @postal VARCHAR(10)
 AS
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM Sales.Customers WHERE customerID = @ID)
@@ -336,16 +337,22 @@ BEGIN
         PRINT'Error: Customer not found.';
     END;
 
-    IF NOT EXISTS (SELECT 1 FROM Location.Address WHERE addressID = @AddressID)
+    IF NOT EXISTS (SELECT 1 FROM Location.Address WHERE addressLine1 = @Address AND postalCode=@postal)
     BEGIN
-        PRINT 'Error: Address not found.';
+        INSERT INTO Location.Address VALUES(@Address, @postal, 285)
     END;
 
     BEGIN TRY
         BEGIN TRANSACTION;
 
+        DECLARE @IdAddress INT;
+
+        SELECT @IdAddress = addressID
+        FROM Location.Address
+        where addressLine1 = @Address AND postalCode=@postal;
+
         UPDATE Sales.Customers
-        SET addressID = @AddressID
+        SET addressID = @IdAddress
         WHERE customerID = @ID;
 
         COMMIT TRANSACTION;
