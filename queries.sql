@@ -55,3 +55,16 @@ select distinct AddressLine1 from Customer;
 select EnglishProductSubcategoryName from ProductSubCategory;
 
 select distinct EnglishProductCategoryName from Products;
+
+-- Apagar a base de dados
+
+USE master;
+GO
+
+-- Forçar a desconexão de utilizadores que estejam a usar a base de dados (opcional mas recomendado)
+ALTER DATABASE AdventureWorks SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+
+-- Eliminar a base de dados
+DROP DATABASE AdventureWorks;
+GO

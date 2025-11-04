@@ -1,6 +1,6 @@
 -- Deletes all subcategories after a category is deleted
 CREATE OR ALTER TRIGGER trDeleteSubcategories
-ON Category
+ON Reference.Category
 INSTEAD OF DELETE
 AS
 BEGIN
@@ -9,18 +9,18 @@ BEGIN
     -- Recursively delete subcategories
     ;WITH RecursiveCTE AS (
         SELECT c.categoryID
-        FROM Category c
+        FROM Reference.Category c
         INNER JOIN deleted d ON c.parentCategoryID = d.categoryID
         UNION ALL
         SELECT c.categoryID
-        FROM Category c
+        FROM Reference.Category c
         INNER JOIN RecursiveCTE r ON c.parentCategoryID = r.categoryID
     )
-    DELETE FROM Category
+    DELETE FROM Reference.Category
     WHERE categoryID IN (SELECT categoryID FROM RecursiveCTE);
 
     -- Delete the parent(s)
-    DELETE FROM Category
+    DELETE FROM Reference.Category
     WHERE categoryID IN (SELECT categoryID FROM deleted);
 END;
 
