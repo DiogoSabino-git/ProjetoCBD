@@ -76,7 +76,7 @@ EXEC Sales.spAddCustomer @FirstName = 'Lúcio', @MiddleName = 'Correia', @LastNa
 
 select * from Sales.Customers where firstName = 'Lúcio';
 
-EXEC Sales.spEditFirstName @ID = 20070, @first = 'Luciano';
+EXEC Sales.spEditFirstName @ID = 20071, @first = 'Luciano';
 
 select * from Sales.Customers where firstName = 'Luciano';
 
@@ -84,54 +84,54 @@ select * from Sales.Customers where firstName = 'Luciano';
 -- spEditMiddleName Test --
 --------------------------
 
-EXEC Sales.spEditMiddleName @ID = 20070, @middle = 'Corrente';
+EXEC Sales.spEditMiddleName @ID = 20071, @middle = 'Corrente';
 select * from Sales.Customers where middleName = 'Corrente';
 
 --------------------------
 -- spEditLastName Test --
 --------------------------
 
-EXEC Sales.spEditlastName @ID = 20070, @last = 'Abreu';
+EXEC Sales.spEditlastName @ID = 20071, @last = 'Abreu';
 select * from Sales.Customers where lastName = 'Abreu';
 
 -----------------------------
 -- spEditYearlyIncome Test --
 -----------------------------
 
-select * from Sales.Customers where customerID = 1;
-EXEC Sales.spEditYearlyIncome @ID = 1, @income = 10000;
-select * from Sales.Customers where customerID = 1;
+select * from Sales.Customers where customerID = 20071;
+EXEC Sales.spEditYearlyIncome @ID = 20071, @income = 10000;
+select * from Sales.Customers where customerID = 20071;
 
 ---------------------------
 -- spEditNumberCars Test --
 ---------------------------
 
-select * from Sales.Customers where customerID = 1;
-EXEC Sales.spEditNumberCars @ID = 1, @num = 2;
-select * from Sales.Customers where customerID = 1;
+select * from Sales.Customers where customerID = 20071;
+EXEC Sales.spEditNumberCars @ID = 20071, @num = 2;
+select * from Sales.Customers where customerID = 20071;
 
 ----------------------
 -- spEditTitle Test --
 ----------------------
 
-select * from Sales.Customers where customerID = 1;
-EXEC Sales.spEditTitle @ID = 1, @title = Ms;
-select * from Sales.Customers where customerID = 1;
+select * from Sales.Customers where customerID = 20071;
+EXEC Sales.spEditTitle @ID = 20071, @title = Ms;
+select * from Sales.Customers where customerID = 20071;
 
 ------------------------------
 -- spEditMartialStatus Test --
 ------------------------------
 
-select * from Sales.Customers where customerID = 1;
-EXEC Sales.spEditMartialStatus @ID = 1, @stat = M;
-select * from Sales.Customers where customerID = 1;
+select * from Sales.Customers where customerID = 20071;
+EXEC Sales.spEditMartialStatus @ID = 20071, @stat = M;
+select * from Sales.Customers where customerID = 20071;
 
 -----------------------
 -- spEditGender Test --
 -----------------------
 
 select * from Sales.Customers where customerID = 1;
-EXEC Sales.spEditGender @ID = 1, @gender = 'M';
+EXEC Sales.spEditGender @ID = 1, @gender = 'F';
 select * from Sales.Customers where customerID = 1;
 
 select * from Reference.Gender;
@@ -141,7 +141,7 @@ select * from Reference.Gender;
 ---------------------------
 
 select * from Sales.Customers where customerID = 1;
-EXEC Sales.spEditOccupation @ID = 1, @occupation = 'Manual';
+EXEC Sales.spEditOccupation @ID = 1, @occupation = 'Professional';
 select * from Sales.Customers where customerID = 1;
 
 --------------------------
