@@ -1,6 +1,6 @@
---------------------------------------------------------------
--- CRIAÇÃO DA BASE DE DADOS COM FILEGROUPS
---------------------------------------------------------------
+---------------------------------------------
+-- CRIAÇÃO DA BASE DE DADOS COM FILEGROUPS --
+---------------------------------------------
 
 CREATE DATABASE AdventureWorks
 ON
@@ -39,9 +39,9 @@ GO
 USE AdventureWorks;
 GO
 
---------------------------------------------------------------
--- CRIAÇÃO DOS SCHEMAS
---------------------------------------------------------------
+-------------------------
+-- CRIAÇÃO DOS SCHEMAS --
+-------------------------
 CREATE SCHEMA Location;
 GO
 CREATE SCHEMA UserManagement;
@@ -56,9 +56,9 @@ CREATE SCHEMA Monitoring;
 GO
 
 
---------------------------------------------------------------
--- LOCATION: GROUP, COUNTRY, REGION, STATEPROVINCE, CITY, ADDRESS
---------------------------------------------------------------
+--------------------------------------------------------------------
+-- LOCATION: GROUP, COUNTRY, REGION, STATEPROVINCE, CITY, ADDRESS --
+--------------------------------------------------------------------
 
 CREATE TABLE Location.[Group] (
     groupID TINYINT IDENTITY(1,1) PRIMARY KEY,
@@ -101,9 +101,9 @@ CREATE TABLE Location.Address (
     FOREIGN KEY (cityID) REFERENCES Location.City(cityID)
 ) ON [AdventureSecondaryFG];
 
---------------------------------------------------------------
--- USERMANAGEMENT: SENTEMAILS, USERSECURITY
---------------------------------------------------------------
+----------------------------------------------
+-- USERMANAGEMENT: SENTEMAILS, USERSECURITY --
+----------------------------------------------
 
 CREATE TABLE UserManagement.SentEmails (
     sentEmailsID INT IDENTITY(1,1) PRIMARY KEY,
@@ -120,9 +120,9 @@ CREATE TABLE UserManagement.UserSecurity (
     phone VARCHAR (20)
 ) ON [AdventureSecondaryFG];
 
---------------------------------------------------------------
--- REFERENCE: OCCUPATION, EDUCATION, GENDER, CATEGORY, COLOR, CURRENCY
---------------------------------------------------------------
+-------------------------------------------------------------------------
+-- REFERENCE: OCCUPATION, EDUCATION, GENDER, CATEGORY, COLOR, CURRENCY --
+-------------------------------------------------------------------------
 
 CREATE TABLE Reference.Occupation (
     occupationID TINYINT IDENTITY(1,1) PRIMARY KEY,
@@ -160,9 +160,9 @@ CREATE TABLE Reference.Currency (
     currencyAlternateKey CHAR (3)
 ) ON [PRIMARY];
 
---------------------------------------------------------------
--- PRODUCTION: PRODUCTS
---------------------------------------------------------------
+--------------------------
+-- PRODUCTION: PRODUCTS --
+--------------------------
 
 CREATE TABLE Production.Products (
     productID INT IDENTITY(1,1) PRIMARY KEY,
@@ -187,9 +187,9 @@ CREATE TABLE Production.Products (
     FOREIGN KEY (categoryID) REFERENCES Reference.Category(categoryID)
 ) ON [AdventureSecondaryFG];
 
---------------------------------------------------------------
--- SALES: CUSTOMERS, SALESORDER, SALESORDERLINE
---------------------------------------------------------------
+--------------------------------------------------
+-- SALES: CUSTOMERS, SALESORDER, SALESORDERLINE --
+--------------------------------------------------
 
 CREATE TABLE Sales.Customers (
     customerID INT IDENTITY(1,1) PRIMARY KEY,
@@ -241,9 +241,9 @@ CREATE TABLE Sales.SalesOrderLine (
         ON DELETE CASCADE
 ) ON [AdventureSecondaryFG];
 
---------------------------------------------------------------
--- MONITORING: STATISTICS
---------------------------------------------------------------
+----------------------------
+-- MONITORING: STATISTICS --
+----------------------------
 
 CREATE TABLE Monitoring.[Statistics] (
     statisticsID INT IDENTITY (1,1) PRIMARY KEY,
