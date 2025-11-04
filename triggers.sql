@@ -1,5 +1,5 @@
 -- Deletes all subcategories after a category is deleted
-CREATE OR ALTER TRIGGER trDeleteCategory
+CREATE OR ALTER TRIGGER trDeleteSubcategories
 ON Category
 INSTEAD OF DELETE
 AS

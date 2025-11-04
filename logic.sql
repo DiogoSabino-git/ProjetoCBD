@@ -167,6 +167,8 @@ GO
 --------------------------
 -- SP edit Customer --
 --------------------------
+
+-- Edit First Name
 CREATE OR ALTER PROCEDURE spEditFirstName
 @ID INT,
 @first VARCHAR(50)
@@ -178,6 +180,7 @@ BEGIN
 END;
 GO
 
+-- Edit Middle Name
 CREATE OR ALTER PROCEDURE spEditMiddleName
 @ID INT,
 @middle VARCHAR(50)
@@ -189,6 +192,7 @@ BEGIN
 END;
 GO
 
+-- Edit Last Name
 CREATE OR ALTER PROCEDURE spEditLastName
 @ID INT,
 @last VARCHAR(50)
@@ -200,6 +204,7 @@ BEGIN
 END;
 GO
 
+-- Edit Yearly Income
 CREATE OR ALTER PROCEDURE spEdityearlyIncome
 @ID INT,
 @income DECIMAL (10,2)
@@ -211,6 +216,7 @@ BEGIN
 END;
 GO
 
+-- Edit Number of Cars
 CREATE OR ALTER PROCEDURE spEditNumberCars
 @ID INT,
 @num TINYINT
@@ -222,6 +228,7 @@ BEGIN
 END;
 GO
 
+-- Edit Title
 CREATE OR ALTER PROCEDURE spEditTitle
 @ID INT,
 @title VARCHAR (5)
@@ -233,6 +240,7 @@ BEGIN
 END;
 GO
 
+-- Edit Martial Status
 CREATE OR ALTER PROCEDURE spEditMartialStatus
 @ID INT,
 @stat VARCHAR (15)
@@ -244,6 +252,7 @@ BEGIN
 END;
 GO
 
+-- Edit Gender
 CREATE OR ALTER PROCEDURE spEditGender
 @ID INT,
 @gender TINYINT
@@ -255,6 +264,7 @@ BEGIN
 END;
 GO
 
+-- Edit Occupation
 CREATE OR ALTER PROCEDURE spEditOccupation
 @ID INT,
 @occuption TINYINT
@@ -266,6 +276,7 @@ BEGIN
 END;
 GO
 
+-- Edit Education
 CREATE OR ALTER PROCEDURE spEditEducation
 @ID INT,
 @education TINYINT
@@ -277,6 +288,7 @@ BEGIN
 END;
 GO
 
+-- Edit Address
 CREATE OR ALTER PROCEDURE spEditAddress
     @ID INT,
     @AddressID INT
@@ -308,6 +320,7 @@ BEGIN
 END;
 GO
 
+-- Edit User Email
 CREATE OR ALTER PROCEDURE spEditUserEmail
 @ID INT,
 @email VARCHAR(255)

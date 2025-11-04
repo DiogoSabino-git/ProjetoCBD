@@ -6,7 +6,7 @@ CREATE DATABASE AdventureWorks
 ON
 PRIMARY (
     NAME = AdventurePrimary,
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventurePrimary.mdf',
+    FILENAME = '/var/opt/mssql/data/AdventurePrimary.mdf',
     SIZE = 1MB,
     MAXSIZE = 20MB,
     FILEGROWTH = 1MB
@@ -14,7 +14,7 @@ PRIMARY (
 FILEGROUP AdventureSecondaryFG
 (
     NAME = AdventureSecondary,
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventureSecondary.mdf',
+    FILENAME = '/var/opt/mssql/data/AdventureSecondary.mdf',
     SIZE = 25MB,
     MAXSIZE = 100MB,
     FILEGROWTH = 10MB 
@@ -22,18 +22,11 @@ FILEGROUP AdventureSecondaryFG
 FILEGROUP LogFileGroup
 (
     NAME = AdventureLogsData,
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventureLogsData.ndf',
+    FILENAME = '/var/opt/mssql/data/AdventureLogsData.ndf',
     SIZE = 50MB,
     MAXSIZE = 500MB,
     FILEGROWTH = 50MB
 )
-LOG ON (
-    NAME = AdventureLogs,
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventureLogs.ldf',
-    SIZE = 100MB,
-    MAXSIZE = 1GB,
-    FILEGROWTH = 100MB
-);
 GO
 
 USE AdventureWorks;
