@@ -7,7 +7,7 @@ ON
 PRIMARY (
     NAME = AdventurePrimary,
     FILENAME = '/var/opt/mssql/data/AdventurePrimary.mdf',
-    SIZE = 1MB,
+    SIZE = 2MB,
     MAXSIZE = 20MB,
     FILEGROWTH = 1MB
 ),
@@ -15,7 +15,7 @@ FILEGROUP AdventureSecondaryFG
 (
     NAME = AdventureSecondary,
     FILENAME = '/var/opt/mssql/data/AdventureSecondary.mdf',
-    SIZE = 25MB,
+    SIZE = 10MB,
     MAXSIZE = 100MB,
     FILEGROWTH = 10MB 
 ),
@@ -23,7 +23,7 @@ FILEGROUP LogFileGroup
 (
     NAME = AdventureLogsData,
     FILENAME = '/var/opt/mssql/data/AdventureLogsData.ndf',
-    SIZE = 50MB,
+    SIZE = 15MB,
     MAXSIZE = 500MB,
     FILEGROWTH = 50MB
 )
