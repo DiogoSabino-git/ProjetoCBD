@@ -69,6 +69,102 @@ select * from Customers c
 join UserSecurity u ON c.userEmail = u.userEmail
 where c.userEmail = 'luciocdssds@gmail.com';
 
+--------------------------
+-- spEditFirstName Test --
+--------------------------
+
+EXEC Sales.spAddCustomer @FirstName = 'Lúcio', @MiddleName = 'Correia', @LastName = 'Dos Santos', @CustomerEmail = 'luciocdssds@gmail.com', 
+                    @CustomerPassword = 'frogger123', @SecurityQuestion = 'Why are you so angry?', @SecurityAnswer = 'boop', 
+                    @Phone = '111111111', @Address = 'Paraíso', @PostalCode = '2805', @MartialStatus = "S", @BirthDate = '1930-01-10', 
+                    @Education = 'Bachelors', @Occupation = "Professional", @Gender = "M";
+
+select * from Sales.Customers where firstName = 'Lúcio';
+
+EXEC Sales.spEditFirstName @ID = 20070, @first = 'Luciano';
+
+select * from Sales.Customers where firstName = 'Luciano';
+
+--------------------------
+-- spEditMiddleName Test --
+--------------------------
+
+EXEC Sales.spEditMiddleName @ID = 20070, @middle = 'Corrente';
+select * from Sales.Customers where middleName = 'Corrente';
+
+--------------------------
+-- spEditLastName Test --
+--------------------------
+
+EXEC Sales.spEditlastName @ID = 20070, @last = 'Abreu';
+select * from Sales.Customers where lastName = 'Abreu';
+
+-----------------------------
+-- spEditYearlyIncome Test --
+-----------------------------
+
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditYearlyIncome @ID = 1, @income = 10000;
+select * from Sales.Customers where customerID = 1;
+
+---------------------------
+-- spEditNumberCars Test --
+---------------------------
+
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditNumberCars @ID = 1, @num = 2;
+select * from Sales.Customers where customerID = 1;
+
+----------------------
+-- spEditTitle Test --
+----------------------
+
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditTitle @ID = 1, @title = Ms;
+select * from Sales.Customers where customerID = 1;
+
+------------------------------
+-- spEditMartialStatus Test --
+------------------------------
+
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditMartialStatus @ID = 1, @stat = M;
+select * from Sales.Customers where customerID = 1;
+
+-----------------------
+-- spEditGender Test --
+-----------------------
+
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditGender @ID = 1, @gender = 'M';
+select * from Sales.Customers where customerID = 1;
+
+select * from Reference.Gender;
+
+---------------------------
+-- spEditOccupation Test --
+---------------------------
+
+select * from Sales.Customers where customerID = 1;
+EXEC Sales.spEditOccupation @ID = 1, @occupation = 'Manual';
+select * from Sales.Customers where customerID = 1;
+
+--------------------------
+-- spEditEducation Test --
+--------------------------
+
+select * from Sales.Customers where customerID = 1;
+select * from Reference.Education;
+EXEC Sales.spEditEducation @ID = 1, @education = 'Bachelors';
+select * from Sales.Customers where customerID = 1;
+
+------------------------
+-- spEditAddress Test --
+------------------------
+
+-----------------------
+-- spEditEmail Test ---
+-----------------------
+
 -------------------------------
 -- EXEC Statistics Procedure --
 -------------------------------
@@ -121,3 +217,4 @@ select * from Sales.vCustomerOrders;
 -------------------------------------
 
 select * from Sales.vProductSalesSummary;
+

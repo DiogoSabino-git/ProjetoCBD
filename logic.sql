@@ -1,14 +1,14 @@
 ---------------------------------
 -- SP to add a new Subcategory --
 ---------------------------------
-CREATE OR ALTER PROCEDURE spAddSubcategory
+CREATE OR ALTER PROCEDURE Reference.spAddSubcategory
     @SubcategoryName VARCHAR(50),
     @CategoryName VARCHAR (50)
 AS
 BEGIN
     DECLARE @CategoryID INT;
     SELECT @CategoryID = categoryID
-    FROM Category
+    FROM Reference.Category
     WHERE categoryName = @CategoryName;
 
     IF @CategoryID IS NULL
@@ -17,14 +17,15 @@ BEGIN
         RETURN;
     END
 
-    INSERT INTO Category (categoryName, parentCategoryID) VALUES (@SubcategoryName, @CategoryID)
+    INSERT INTO Reference.Category (categoryName, parentCategoryID) VALUES (@SubcategoryName, @CategoryID)
 END;
 GO
+
 
 ---------------------------------
 -- SP to add a new Customer --
 ---------------------------------
-CREATE OR ALTER PROCEDURE spAddCustomer
+CREATE OR ALTER PROCEDURE Sales.spAddCustomer
     @FirstName VARCHAR (50),
     @MiddleName VARCHAR (50),
     @LastName VARCHAR (50),
@@ -42,48 +43,48 @@ CREATE OR ALTER PROCEDURE spAddCustomer
     @Gender VARCHAR (50)
 AS
 BEGIN
-    IF EXISTS (SELECT 1 FROM UserSecurity WHERE userEmail = @CustomerEmail)
+    IF EXISTS (SELECT 1 FROM UserManagement.UserSecurity WHERE userEmail = @CustomerEmail)
         BEGIN
     PRINT 'Error: User already exists with this email.';
     RETURN;
         END
 
-    INSERT INTO UserSecurity (userEmail, [password], securityQuestion, securityAnswer)
+    INSERT INTO UserManagement.UserSecurity (userEmail, [password], securityQuestion, securityAnswer)
     VALUES (@CustomerEmail, @CustomerPassword, @SecurityQuestion, @SecurityAnswer)
 
-    IF NOT EXISTS (SELECT 1 FROM [Address] WHERE addressLine1 = @Address AND postalCode = @PostalCode)
+    IF NOT EXISTS (SELECT 1 FROM Location.Address WHERE addressLine1 = @Address AND postalCode = @PostalCode)
         BEGIN
-    INSERT INTO [Address] (addressLine1, postalCode, cityID) 
+    INSERT INTO Location.Address (addressLine1, postalCode, cityID) 
     VALUES (@Address, @PostalCode, 75)
         END
 
     DECLARE @GenderID INT
     SELECT @GenderID = genderID
-    FROM Gender
+    FROM Reference.Gender
     WHERE genderName = @Gender;
 
     DECLARE @OccupationID INT
     SELECT @OccupationID = occupationID
-    FROM Occupation
+    FROM Reference.Occupation
     WHERE occupationName = @Occupation
 
     DECLARE @EducationID INT
     SELECT @EducationID = educationID
-    FROM Education
+    FROM Reference.Education
     WHERE educationName = @Education
 
     DECLARE @AddressID INT = SCOPE_IDENTITY();
 
-    INSERT INTO Customers (firstName, middleName, lastName, birthDate, martialStatus, genderID, occupationID, educationID, addressID, userEmail)
+    INSERT INTO Sales.Customers (firstName, middleName, lastName, birthDate, martialStatus, genderID, occupationID, educationID, addressID, userEmail)
     VALUES (@FirstName, @MiddleName, @LastName, @BirthDate, @MartialStatus, @GenderID, @OccupationID, @EducationID, @AddressID, @CustomerEmail)
 END;
 GO
 
+
 ---------------------------
 -- SP to delete Customer --
 ---------------------------
-
-CREATE OR ALTER PROCEDURE spDeleteCustomer
+CREATE OR ALTER PROCEDURE Sales.spDeleteCustomer
     @CustomerEmail VARCHAR(255)
 AS
 BEGIN
@@ -91,8 +92,8 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        DELETE FROM Customers WHERE userEmail = @CustomerEmail;
-        DELETE FROM UserSecurity WHERE userEmail = @CustomerEmail;
+        DELETE FROM Sales.Customers WHERE userEmail = @CustomerEmail;
+        DELETE FROM UserManagement.UserSecurity WHERE userEmail = @CustomerEmail;
 
         COMMIT TRANSACTION;
         PRINT 'Customer and related data deleted.';
@@ -104,11 +105,11 @@ BEGIN
 END;
 GO
 
+
 --------------------------
 -- SP add to Statistics --
 --------------------------
-
-CREATE OR ALTER PROCEDURE spdbstatistics
+CREATE OR ALTER PROCEDURE Monitoring.spdbstatistics
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -148,7 +149,7 @@ BEGIN
                 @space = @SpaceUsed OUTPUT;
 
             -- Insert stats into the Statistics table
-            INSERT INTO [Statistics] (tableName, registersNum, spaceUsedKB, lastUpdate)
+            INSERT INTO Monitoring.[Statistics] (tableName, registersNum, spaceUsedKB, lastUpdate)
             VALUES (@TableName, @RowCount, @SpaceUsed, GETDATE());
         END TRY
         BEGIN CATCH
@@ -169,137 +170,173 @@ GO
 --------------------------
 
 -- Edit First Name
-CREATE OR ALTER PROCEDURE spEditFirstName
+CREATE OR ALTER PROCEDURE Sales.spEditFirstName
 @ID INT,
 @first VARCHAR(50)
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET firstName=@first
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Middle Name
-CREATE OR ALTER PROCEDURE spEditMiddleName
+CREATE OR ALTER PROCEDURE Sales.spEditMiddleName
 @ID INT,
 @middle VARCHAR(50)
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET middleName=@middle
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Last Name
-CREATE OR ALTER PROCEDURE spEditLastName
+CREATE OR ALTER PROCEDURE Sales.spEditLastName
 @ID INT,
 @last VARCHAR(50)
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET lastName=@last
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Yearly Income
-CREATE OR ALTER PROCEDURE spEdityearlyIncome
+CREATE OR ALTER PROCEDURE Sales.spEdityearlyIncome
 @ID INT,
 @income DECIMAL (10,2)
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET yearlyIncome=@income
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Number of Cars
-CREATE OR ALTER PROCEDURE spEditNumberCars
+CREATE OR ALTER PROCEDURE Sales.spEditNumberCars
 @ID INT,
 @num TINYINT
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET numbersCarsOwned=@num
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Title
-CREATE OR ALTER PROCEDURE spEditTitle
+CREATE OR ALTER PROCEDURE Sales.spEditTitle
 @ID INT,
 @title VARCHAR (5)
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET title=@title
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Martial Status
-CREATE OR ALTER PROCEDURE spEditMartialStatus
+CREATE OR ALTER PROCEDURE Sales.spEditMartialStatus
 @ID INT,
 @stat VARCHAR (15)
 AS
 BEGIN
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET martialStatus=@stat
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Gender
-CREATE OR ALTER PROCEDURE spEditGender
+CREATE OR ALTER PROCEDURE Sales.spEditGender
 @ID INT,
-@gender TINYINT
+@gender VARCHAR (50)
 AS
 BEGIN
-    UPDATE Customers
-    SET genderID=@gender
-    WHERE customerID=@ID;
+    DECLARE @GenderID INT;
+
+    SELECT @GenderID = genderID
+    FROM Reference.Gender
+    WHERE genderName = @gender;
+
+    IF @GenderID IS NULL
+    BEGIN
+        PRINT 'Error: Gender does not exist. (Polémico)'
+        RETURN;
+    END
+
+    UPDATE Sales.Customers
+    SET genderID = @GenderID
+    WHERE customerID = @ID;
 END;
 GO
 
 -- Edit Occupation
-CREATE OR ALTER PROCEDURE spEditOccupation
+CREATE OR ALTER PROCEDURE Sales.spEditOccupation
 @ID INT,
-@occuption TINYINT
+@occupation VARCHAR (50)
 AS
 BEGIN
-    UPDATE Customers
-    SET occupationID=@occuption
-    WHERE customerID=@ID;
+    DECLARE @OccupationID INT;
+    
+    SELECT @OccupationID = occupationID
+    FROM Reference.Occupation
+    WHERE occupationName = @occupation;
+    
+    IF @OccupationID IS NULL
+    BEGIN
+        PRINT 'Error: Occupation does not exist.';
+        RETURN;
+    END
+
+    UPDATE Sales.Customers        
+    SET occupationID = @OccupationID
+    WHERE customerID = @ID;
 END;
 GO
 
 -- Edit Education
-CREATE OR ALTER PROCEDURE spEditEducation
+CREATE OR ALTER PROCEDURE Sales.spEditEducation
 @ID INT,
-@education TINYINT
+@education VARCHAR (50)
 AS
 BEGIN
-    UPDATE Customers
-    SET educationID=@education
+    DECLARE @EducationID INT;
+    
+    SELECT @EducationID = educationID
+    FROM Reference.Education
+    WHERE educationName = @education;
+
+    IF @EducationID IS NULL
+    BEGIN
+        PRINT 'Error: Education does not exist. (Tenso)'
+        RETURN;
+    END
+
+    UPDATE Sales.Customers
+    SET educationID=@EducationID
     WHERE customerID=@ID;
 END;
 GO
 
 -- Edit Address
-CREATE OR ALTER PROCEDURE spEditAddress
+CREATE OR ALTER PROCEDURE Sales.spEditAddress
     @ID INT,
     @AddressID INT
 AS
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM Customers WHERE customerID = @ID)
+    IF NOT EXISTS (SELECT 1 FROM Sales.Customers WHERE customerID = @ID)
     BEGIN
         PRINT'Error: Customer not found.';
     END;
 
-    IF NOT EXISTS (SELECT 1 FROM Address WHERE addressID = @AddressID)
+    IF NOT EXISTS (SELECT 1 FROM Location.Address WHERE addressID = @AddressID)
     BEGIN
         PRINT 'Error: Address not found.';
     END;
@@ -307,7 +344,7 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        UPDATE Customers
+        UPDATE Sales.Customers
         SET addressID = @AddressID
         WHERE customerID = @ID;
 
@@ -321,19 +358,19 @@ END;
 GO
 
 -- Edit User Email
-CREATE OR ALTER PROCEDURE spEditUserEmail
+CREATE OR ALTER PROCEDURE Sales.spEditUserEmail
 @ID INT,
 @email VARCHAR(255)
 AS
 BEGIN TRY
     BEGIN TRANSACTION
-    IF EXISTS (SELECT 1 FROM UserSecurity WHERE userEmail = @email)
+    IF EXISTS (SELECT 1 FROM UserManagement.UserSecurity WHERE userEmail = @email)
         BEGIN
     PRINT 'Error: User already exists with this email.';
     RETURN;
         END
 
-        IF NOT EXISTS (SELECT 1 FROM Customers WHERE customerID = @ID)
+        IF NOT EXISTS (SELECT 1 FROM Sales.Customers WHERE customerID = @ID)
 BEGIN
     PRINT 'Error: Customer not found.';
 END
@@ -341,19 +378,19 @@ END
     DECLARE @emailA VARCHAR(255);
 
     SELECT @emailA = userEmail
-    FROM Customers
+    FROM Sales.Customers
     WHERE customerID=@ID;
 
-     INSERT INTO UserSecurity (userEmail, [password], securityQuestion, securityAnswer, phone)
+     INSERT INTO UserManagement.UserSecurity (userEmail, [password], securityQuestion, securityAnswer, phone)
         SELECT @email, [password], securityQuestion, securityAnswer, phone
-        FROM UserSecurity
+        FROM UserManagement.UserSecurity
         WHERE userEmail = @emailA;
 
-    UPDATE Customers
+    UPDATE Sales.Customers
     SET userEmail=@email
     WHERE userEmail=@emailA;
 
-    DELETE FROM UserSecurity
+    DELETE FROM UserManagement.UserSecurity
         WHERE userEmail = @emailA;
     
 COMMIT TRANSACTION;
@@ -362,11 +399,4 @@ BEGIN CATCH
     ROLLBACK TRANSACTION;
     THROW;
 END CATCH
-
-
-
-
-
-
-
-
+GO
