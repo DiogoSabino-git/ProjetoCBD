@@ -212,3 +212,18 @@ select * from Sales.vCustomerOrders;
 
 select * from Sales.vProductSalesSummary;
 
+-------------------------------------
+-- Test fnGetFullAddress --
+-------------------------------------
+SELECT Location.fnGetFullAddress(1);
+
+
+-------------------------------------
+-- Test fnGetCustomerFullName --
+-------------------------------------
+SELECT Sales.fnGetCustomerFullName(5);
+
+-------------------------------------
+-- Test fnGetTotalSalesByDate --
+-------------------------------------
+SELECT Sales.fnGetTotalSalesByDate('2011-01-28') AS TotalSales;

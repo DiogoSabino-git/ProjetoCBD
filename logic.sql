@@ -407,3 +407,70 @@ BEGIN CATCH
     THROW;
 END CATCH
 GO
+
+--------------------------
+-- Functions --
+--------------------------
+
+--Fn Full Address
+CREATE OR ALTER FUNCTION Location.fnGetFullAddress (@addressID INT)
+RETURNS VARCHAR(255)
+AS
+BEGIN
+    DECLARE @fullAddress VARCHAR(255);
+
+    SELECT @fullAddress = 
+        a.addressLine1 + ', ' + c.cityName + ', ' + sp.stateProvinceName + ', ' +
+        r.regionName + ', ' + co.countryName
+    FROM Location.Address a
+    JOIN Location.City c ON a.cityID = c.cityID
+    JOIN Location.StateProvince sp ON c.stateProvinceID = sp.stateProvinceID
+    JOIN Location.Region r ON sp.regionID = r.regionID
+    JOIN Location.Country co ON r.countryID = co.countryID
+    WHERE a.addressID = @addressID;
+
+    RETURN @fullAddress;
+END;
+GO
+
+
+--Fn Full Name
+CREATE OR ALTER FUNCTION Sales.fnGetCustomerFullName (@customerID INT)
+RETURNS VARCHAR(150)
+AS
+BEGIN
+    DECLARE @name VARCHAR(150);
+
+    SELECT @name = 
+        ISNULL(title + ' ', '') +
+        firstName + ' ' +
+        ISNULL(middleName + ' ', '') +
+        lastName
+    FROM Sales.Customers
+    WHERE customerID = @customerID;
+
+    RETURN @name;
+END;
+GO
+
+--Fn Sales in a Day
+CREATE OR ALTER FUNCTION Sales.fnGetTotalSalesByDate (@salesDate DATE)
+RETURNS DECIMAL(18,2)
+AS
+BEGIN
+    DECLARE @total DECIMAL(18,2);
+
+    SELECT @total = SUM(totalSalesAmt)
+    FROM Sales.SalesOrder
+    WHERE CAST(orderDate AS DATE) = @salesDate;
+
+    RETURN ISNULL(@total, 0);
+END;
+GO
+
+
+
+
+
+
+
