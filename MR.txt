@@ -15,7 +15,7 @@ SentEmails (sentEmailsID, message, timestamp, userEmail)
 - PK (sentEmailsID)
 - FK (userEmail)
 
-Address (addressID, addressLine1, city)
+Address (addressID, addressLine1, postalCode, city)
 - PK (addressID)
 - FK (cityID) -> City
 
