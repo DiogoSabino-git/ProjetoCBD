@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript migration
+-- Migração de dados da base de dados antiga "AdventureWorksLegacy" para a nova base de dados "AdventureWorks".
+
+
 -- Group
 INSERT INTO Location.[Group] (groupName)
 SELECT DISTINCT SalesTerritoryGroup 

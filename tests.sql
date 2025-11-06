@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript Tests
+-- Demonstração de todos os procedures, functions, triggers, views e algumas queries.
+
+
 --------------------------------
 -- Subcategories Trigger Test --
 --------------------------------

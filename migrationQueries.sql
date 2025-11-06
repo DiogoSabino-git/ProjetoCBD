@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript MigrationQueries
+-- Queries que verificam a integridade da importação de dados da base de dados antiga para a nova.
+
+
 -- Customers
 SELECT COUNT(*) AS OldCount FROM AdventureWorksLegacy.dbo.Customer;
 SELECT COUNT(*) AS NewCount FROM AdventureWorks.Sales.Customers;

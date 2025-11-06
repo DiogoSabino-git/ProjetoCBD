@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript Logic
+-- Criação de procedures e functions.
+
+
 ---------------------------------
 -- SP to add a new Subcategory --
 ---------------------------------

@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript Create
+-- Criação de views.
+
+
 -- Full Address
 CREATE VIEW Location.vFullAddress
 AS

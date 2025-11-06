@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript Create
+-- Criação de filegroups, shemas e tabelas.
+
+
 ---------------------------------------------
 -- CRIAÇÃO DA BASE DE DADOS COM FILEGROUPS --
 ---------------------------------------------

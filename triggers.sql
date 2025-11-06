@@ -1,3 +1,10 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Sript Triggers
+-- Criação de triggers.
+
+
 -- Deletes all subcategories after a category is deleted
 CREATE OR ALTER TRIGGER trDeleteSubcategories
 ON Reference.Category
