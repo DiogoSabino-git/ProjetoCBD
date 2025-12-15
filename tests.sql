@@ -179,11 +179,11 @@ select * from Sales.Customers where customerID=1;
 -------------------------------
 -- EXEC Statistics Procedure --
 -------------------------------
-EXEC spdbStatistics;
+EXEC Monitoring.spdbStatistics;
 
 -- Before migration
 
-select * from [Statistics];
+select * from Monitoring.[Statistics];
 
 -- After migration
 
