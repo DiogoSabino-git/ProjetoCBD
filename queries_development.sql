@@ -56,6 +56,8 @@ select EnglishProductSubcategoryName from ProductSubCategory;
 
 select distinct EnglishProductCategoryName from Products;
 
+select * from Location.Region;
+
 -- Apagar a base de dados
 
 USE master;

@@ -103,4 +103,22 @@ JOIN Sales.SalesOrderLine sol ON p.productID = sol.productID
 GROUP BY p.productID, p.productName;
 GO
 
+-- View de Segurança para o Território Rocky Mountain
 
+
+CREATE VIEW Sales.vAustraliaCustomers AS
+SELECT 
+    C.customerID,
+    C.firstName,
+    C.lastName,
+    C.userEmail,
+    A.addressLine1,
+    City.cityName,
+    R.regionName
+FROM Sales.Customers C
+    INNER JOIN Location.Address A ON C.addressID = A.addressID
+    INNER JOIN Location.City City ON A.cityID = City.cityID
+    INNER JOIN Location.StateProvince SP ON City.stateProvinceID = SP.stateProvinceID
+    INNER JOIN Location.Region R ON SP.regionID = R.regionID
+WHERE R.regionName = 'Australia';
+GO
