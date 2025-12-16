@@ -56,10 +56,10 @@ EXEC Sales.spAddCustomer @FirstName = 'Lúcio', @MiddleName = 'Correia', @LastNa
 select * from Sales.Customers
 where firstName = 'Lúcio';
 
-select * from [Location.Address]
+select * from Location.Address
 where addressLine1 = 'Paraíso';
 
-select * from [Location.Address]
+select * from Location.Address
 where addressID = 20072;
 
 --------------------------
@@ -234,3 +234,21 @@ SELECT Sales.fnGetCustomerFullName(5);
 -- Test fnGetTotalSalesByDate --
 -------------------------------------
 SELECT Sales.fnGetTotalSalesByDate('2011-01-28') AS TotalSales;
+
+select * from UserManagement.UserSecurity WHERE securityQuestion IS NOT NULL;
+
+DECLARE @PerguntaRecebida VARCHAR(255);
+
+
+EXEC UserManagement.sp_GetSecurityQuestion @Email = 'luciocdssds@gmail.com', @Question = @PerguntaRecebida OUTPUT;
+
+Select @PerguntaRecebida AS result;
+
+SELECT UserManagement.fn_AnswerQuestion ('luciocdssds@gmail.com', 'boop') as result;
+
+EXEC UserManagement.sp_EditPassword @Email = 'luciocdssds@gmail.com', @Pass = 'hoje não quero puré';
+
+select password from UserManagement.UserSecurity where userEmail='luciocdssds@gmail.com';
+
+select * from UserManagement.SentEmails;
+
