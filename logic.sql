@@ -415,6 +415,16 @@ BEGIN CATCH
 END CATCH
 GO
 
+
+--Send email
+CREATE OR ALTER PROCEDURE UserManagement.sp_sendEmail
+    @Email varchar(255),
+    @Message varchar(255)
+AS BEGIN
+    INSERT INTO UserManagement.SentEmails ([message], destination) 
+    VALUES (@Message, @Email);
+END
+GO
 --------------------------
 -- Functions --
 --------------------------
@@ -473,6 +483,53 @@ BEGIN
 
     RETURN ISNULL(@total, 0);
 END;
+GO
+
+--------------------------
+-- Recover Password --
+--------------------------
+
+--Show security question
+CREATE OR ALTER PROCEDURE UserManagement.sp_GetSecurityQuestion
+    @Email VARCHAR(255),
+    @Question VARCHAR(255) OUTPUT
+AS
+BEGIN
+    SELECT @Question = securityQuestion
+    FROM UserManagement.UserSecurity
+    WHERE userEmail = @Email;
+END
+GO
+
+--Answer question
+CREATE OR ALTER FUNCTION UserManagement.fn_AnswerQuestion
+(
+    @Email VARCHAR(255),
+    @Answer VARCHAR(100)
+)
+RETURNS BIT
+AS
+BEGIN
+    DECLARE @Result BIT;
+    IF EXISTS (SELECT 1 FROM UserManagement.UserSecurity WHERE userEmail =@Email AND securityAnswer=@Answer)
+        SET @Result=1;
+    ELSE
+        SET @Result=0;
+
+    RETURN @Result;
+    END;
+GO
+
+CREATE OR ALTER PROCEDURE UserManagement.sp_EditPassword
+    @Email varchar(255),
+    @Pass varchar(255)
+
+AS
+BEGIN
+    UPDATE UserManagement.UserSecurity
+    SET password=@Pass
+    WHERE userEmail=@Email;
+END
 GO
 
 

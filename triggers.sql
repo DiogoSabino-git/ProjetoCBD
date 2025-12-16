@@ -30,6 +30,22 @@ BEGIN
     DELETE FROM Reference.Category
     WHERE categoryID IN (SELECT categoryID FROM deleted);
 END;
+GO
 
+-- Sends an email to the user when the passsword is changed
+CREATE OR ALTER TRIGGER trSendEmail
+ON UserManagement.UserSecurity
+AFTER UPDATE
+AS
+BEGIN
+    DECLARE @EmailD VARCHAR(255);
 
--- 
+SELECT @EmailD = i.userEmail
+FROM inserted i
+INNER JOIN deleted d ON i.userEmail = d.userEmail
+WHERE i.[password] <> d.[password];
+
+EXEC UserManagement.sp_sendEmail @Email= @EmailD, @Message='A sua password foi alterada com sucesso!';
+
+END;
+GO
