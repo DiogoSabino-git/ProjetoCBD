@@ -38,6 +38,8 @@ ON UserManagement.UserSecurity
 AFTER UPDATE
 AS
 BEGIN
+    IF NOT UPDATE(password) 
+        RETURN;
     DECLARE @EmailD VARCHAR(255);
 
 SELECT @EmailD = i.userEmail

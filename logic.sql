@@ -511,7 +511,7 @@ RETURNS BIT
 AS
 BEGIN
     DECLARE @Result BIT;
-    IF EXISTS (SELECT 1 FROM UserManagement.UserSecurity WHERE userEmail =@Email AND securityAnswer=@Answer)
+    IF EXISTS (SELECT 1 FROM UserManagement.UserSecurity WHERE userEmail =@Email AND securityAnswer=HASHBYTES('MD5', @Answer))
         SET @Result=1;
     ELSE
         SET @Result=0;
@@ -520,6 +520,7 @@ BEGIN
     END;
 GO
 
+--Edit Password
 CREATE OR ALTER PROCEDURE UserManagement.sp_EditPassword
     @Email varchar(255),
     @Pass varchar(255)
@@ -527,7 +528,7 @@ CREATE OR ALTER PROCEDURE UserManagement.sp_EditPassword
 AS
 BEGIN
     UPDATE UserManagement.UserSecurity
-    SET password=@Pass
+    SET password=HASHBYTES('MD5', @Pass)
     WHERE userEmail=@Email;
 END
 GO
