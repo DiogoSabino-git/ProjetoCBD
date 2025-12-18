@@ -14,3 +14,4 @@ WHERE productID = 1;
 SELECT productID, productName, listPrice 
 FROM Production.Products 
 WHERE productID = 1;
+
