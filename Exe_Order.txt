@@ -1,0 +1,12 @@
+Ordem para correr os ficheiros SQL, para efeitos de demonstração da base de dados:
+
+1 - create.sql
+2 - migration.sql
+3 - migrationQueries.sql (confirma que a migração teve sucesso)
+4 - views.sql
+5 - logic.sql
+6 - triggers.sql
+7 - encription.sql
+8 - indexes.sql
+9 - security.sql
+10 - populateMongoDB.sql (MongoDB)
