@@ -108,7 +108,7 @@ CREATE TABLE Location.Address (
 CREATE TABLE UserManagement.SentEmails (
     sentEmailsID INT IDENTITY(1,1) PRIMARY KEY,
     [message] VARCHAR(100) NOT NULL,
-    [timestamp] DATETIME NOT NULL,
+    [timestamp] DATETIME DEFAULT GETDATE(),
     destination VARCHAR(255) NOT NULL
 ) ON [LogFileGroup];
 
