@@ -1,4 +1,4 @@
-UPDATE UserManagement.UserSecurity SET securityAnswer= HASHBYTES('MD5', securityAnswer);
+UPDATE UserManagement.UserSecurity SET [password]= HASHBYTES('MD5', [password]);
 select * from UserManagement.UserSecurity;
 go
 
