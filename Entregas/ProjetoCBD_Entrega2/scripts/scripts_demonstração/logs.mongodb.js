@@ -1,10 +1,7 @@
-// 1. Selecionar a Base de Dados
 use('AdventurWorksWeb');
 
-// 2. Limpar a coleção antiga
 db.access_logs.drop();
 
-// 3. IMPORTAÇÃO (Corrigida: Removemos o wrapper "logs" e inserimos a lista direta)
 db.access_logs.insertMany([
     {
       "user_email": "aaron18@adventure-works.com",
