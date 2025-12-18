@@ -120,6 +120,19 @@ CREATE TABLE UserManagement.UserSecurity (
     phone VARCHAR (20)
 ) ON [AdventureSecondaryFG];
 
+CREATE TABLE UserManagement.AccessLogs (
+    LogID INT IDENTITY(1,1) PRIMARY KEY,
+    UserEmail VARCHAR(255) NOT NULL,
+    AccessDate DATETIME DEFAULT GETDATE(),
+    ActionType VARCHAR(50),
+    IPAddress VARCHAR(45),
+    Status VARCHAR(20) CHECK (Status IN ('SUCCESS', 'FAILURE')),
+    Description VARCHAR(MAX) NULL,
+    
+    CONSTRAINT FK_AccessLogs_User FOREIGN KEY (UserEmail) 
+    REFERENCES UserManagement.UserSecurity(userEmail)
+) ON [LogFileGroup];
+
 -------------------------------------------------------------------------
 -- REFERENCE: OCCUPATION, EDUCATION, GENDER, CATEGORY, COLOR, CURRENCY --
 -------------------------------------------------------------------------
