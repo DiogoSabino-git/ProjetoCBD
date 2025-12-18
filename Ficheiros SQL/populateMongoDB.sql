@@ -1,3 +1,8 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Script PopulateMongoDB
+
 -- Gerar 50 registos de histórico para a tabela access logs
 INSERT INTO UserManagement.AccessLogs (UserEmail, AccessDate, ActionType, IPAddress, [Status])
 SELECT TOP 50

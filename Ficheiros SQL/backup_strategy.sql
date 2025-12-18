@@ -2,7 +2,7 @@
 -- Rodrigo Antunes nº2024151048
 --
 -- Script Backup Strategy
--- Estratégia de backups (Modelo Completo).
+-- Estratégia de backups (Full).
 
 USE master;
 GO
@@ -25,9 +25,9 @@ IF EXISTS (SELECT name FROM sys.backup_devices WHERE name = 'AW_Log_Device')
 GO
 
 -- Criação dos Dispositivos Lógicos 
-EXEC sp_addumpdevice 'disk', 'AW_Full_Device', 'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventureWorks_Full.bak';
-EXEC sp_addumpdevice 'disk', 'AW_Diff_Device', 'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventureWorks_Diff.bak';
-EXEC sp_addumpdevice 'disk', 'AW_Log_Device',  'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\AdventureWorks_Log.trn';
+EXEC sp_addumpdevice 'disk', 'AW_Full_Device', '/var/opt/mssql/data/AdventureWorks_Full.bak';
+EXEC sp_addumpdevice 'disk', 'AW_Diff_Device', '/var/opt/mssql/data/AdventureWorks_Diff.bak';
+EXEC sp_addumpdevice 'disk', 'AW_Log_Device',  '/var/opt/mssql/data/AdventureWorks_Log.trn';
 GO
 
 -------------------------------------------

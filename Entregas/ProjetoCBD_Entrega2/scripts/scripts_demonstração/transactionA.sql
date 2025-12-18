@@ -1,3 +1,8 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Script TransactionA
+
 -- Aumenta 10%
 BEGIN TRAN
     DECLARE @Price DECIMAL(18,6);

@@ -1,3 +1,8 @@
+-- Diogo Sabino nº202300149
+-- Rodrigo Antunes nº2024151048
+--
+-- Script Encryption
+
 UPDATE UserManagement.UserSecurity SET [password]= HASHBYTES('MD5', [password]);
 select * from UserManagement.UserSecurity;
 go

@@ -1,7 +1,7 @@
 -- Diogo Sabino nº202300149
 -- Rodrigo Antunes nº2024151048
 --
--- Script Crash & Recovery (Corrigido: Sales.Customers)
+-- Script Crash & Recovery
 
 USE AdventureWorks;
 GO
